@@ -1,0 +1,15 @@
+version: 1
+
+name: lmarena-bridge
+
+build:
+  dockerfile: Dockerfile
+
+deploy:
+  port: 8000
+  healthCheck:
+    path: /health
+    interval: 30
+
+resources:
+  memory: 2048  # 2GB 内存
