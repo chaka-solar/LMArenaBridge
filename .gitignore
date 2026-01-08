@@ -4,3 +4,14 @@ venv/
 config.json
 !Dockerfile
 !leapcell.yaml
+
+# PostgreSQL scan scripts - generated files and results
+postgres_scan_scripts/batches/
+postgres_scan_scripts/results/
+postgres_scan_scripts/config.env
+postgres_scan_scripts/.env
+postgres_scan_scripts/*.txt
+postgres_scan_scripts/*.csv
+postgres_scan_scripts/__pycache__/
+!postgres_scan_scripts/README.md
+!postgres_scan_scripts/GETTING_STARTED.txt
