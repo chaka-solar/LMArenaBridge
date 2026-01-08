@@ -1,0 +1,48 @@
+# 敏感配置文件
+config.env
+.env
+*.env
+!config.example.env
+
+# PostgreSQL 密码文件
+.pgpass
+
+# 生成的批次脚本
+batches/
+batch_*.sql
+!example_batch_001_001_100.sql
+
+# 执行结果
+results/
+*.txt
+*.log
+*.csv
+!README.md
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 虚拟环境
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 临时文件
+*.tmp
+temp/
+tmp/
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
