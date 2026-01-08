@@ -14,3 +14,4 @@ postgres_scan_scripts/*.txt
 postgres_scan_scripts/*.csv
 postgres_scan_scripts/__pycache__/
 !postgres_scan_scripts/README.md
+!postgres_scan_scripts/GETTING_STARTED.txt
