@@ -6,6 +6,7 @@ import time
 import secrets
 import base64
 import mimetypes
+import os
 from collections import defaultdict
 from typing import Optional, Dict, List
 from datetime import datetime, timezone, timedelta
@@ -500,7 +501,13 @@ def get_config():
 
     # Ensure default keys exist
     try:
-        config.setdefault("password", "admin")
+        # Priority: Environment variable > config.json > default "admin"
+        env_password = os.environ.get("ADMIN_PASSWORD")
+        if env_password:
+            config["password"] = env_password
+        else:
+            config.setdefault("password", "admin")
+
         config.setdefault("auth_token", "")
         config.setdefault("auth_tokens", [])  # Multiple auth tokens
         config.setdefault("cf_clearance", "")
@@ -861,7 +868,12 @@ async def login_page(request: Request, error: Optional[str] = None):
     if await get_current_session(request):
         return RedirectResponse(url="/dashboard")
     
+    config = get_config()
     error_msg = '<div class="error-message">Invalid password. Please try again.</div>' if error else ''
+    
+    hint = ''
+    if config.get("password") == "admin":
+        hint = '<div style="margin-top: 20px; font-size: 12px; color: #888; text-align: center;">Hint: The default password is "admin"</div>'
     
     return f"""
         <!DOCTYPE html>
@@ -959,6 +971,7 @@ async def login_page(request: Request, error: Optional[str] = None):
                     </div>
                     <button type="submit">Sign In</button>
                 </form>
+                {hint}
             </div>
         </body>
         </html>
@@ -2727,6 +2740,13 @@ if __name__ == "__main__":
     print("=" * 60)
     print(f"📍 Dashboard: http://localhost:{PORT}/dashboard")
     print(f"🔐 Login: http://localhost:{PORT}/login")
+    
+    # Inform about the password if it's the default one
+    current_config = get_config()
+    if current_config.get("password") == "admin":
+        print(f"🔑 Default Password: admin")
+        print(f"📝 Note: You can change this in config.json or via ADMIN_PASSWORD env var")
+    
     print(f"📚 API Base URL: http://localhost:{PORT}/api/v1")
     print("=" * 60)
     uvicorn.run(app, host="0.0.0.0", port=PORT)
