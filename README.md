@@ -45,11 +45,13 @@ To use the LM Arena Bridge, you need to get your authentication token from the L
 
     ```json
     {
-      "auth_token": "YOUR_AUTH_TOKEN"
+      "auth_token": "YOUR_AUTH_TOKEN",
+      "password": "your_secure_password"
     }
     ```
 
 3.  Replace `"YOUR_AUTH_TOKEN"` with the `arena-auth-prod-v1` token you copied from your browser.
+4.  Replace `"your_secure_password"` with a password for the dashboard (default is `admin`).
 
 ### 3. Run the Application
 
@@ -138,7 +140,7 @@ Monitor these key metrics in production:
 
 1. **API Keys**: Use strong, randomly generated API keys (dashboard auto-generates secure keys)
 2. **Rate Limiting**: Configure appropriate rate limits per key in dashboard
-3. **Admin Password**: Change default admin password in `config.json`
+3. **Admin Password**: Change default admin password in `config.json` or by setting the `ADMIN_PASSWORD` environment variable.
 4. **HTTPS**: Use a reverse proxy (nginx, Caddy) with SSL for production
 5. **Firewall**: Restrict access to dashboard port (default 8000)
 
